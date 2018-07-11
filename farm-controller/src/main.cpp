@@ -21,13 +21,12 @@ void setup() {
   Serial.println("WiFi connected");
   Serial.println(WiFi.localIP());
 }
- 
+
 void loop() {
   digitalWrite(D0, HIGH);
   delay(1990);
-  digitalWrite(D0, LOW); 
+  digitalWrite(D0, LOW);
   delay(10);
   // Serial.printf("Water level: %f cm\n", read_water_level());
   web_server.handleClient();
 }
- 
