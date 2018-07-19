@@ -28,8 +28,8 @@ float linear_interpolation(
 
 
 float read_voltage_from_adc() {
-  const static float REFERENCE_ADC_VOLTAGE = 3;
-  const static uint16_t ADC_MAX = 1023;
+  const static float REFERENCE_ADC_VOLTAGE = 3.25;
+  const static uint16_t ADC_MAX = 1024;
   float in_voltage = REFERENCE_ADC_VOLTAGE * analogRead(ADC_PIN) / ADC_MAX;
   Serial.printf("Water level: %d \n", analogRead(ADC_PIN));
   return in_voltage;
@@ -45,22 +45,23 @@ void set_multiplexer_channel(uint8_t channel) {
 
 
 float read_water_level() {
-  const static float VOLTAGES[] = {0.0, 1.3, 1.53, 1.62, 1.69, 1.74, 1.77,
-                                   1.81, 1.84, 1.86, 1.88};
-  const static float HEIGHTS[] = {0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0,
-                                  4.5, 4.8};
-  const static uint8_t MEASUREMENT_SET_SIZE = 11;
+  const static float VOLTAGE_3_5 = 3.0;
+  const static float VOLTAGE_6 = 2.0;
+  const static float VOLTAGE_40 = 0.3;
   const static uint8_t WATER_LEVEL_SENSOR_CHANNEL = 0;
   set_multiplexer_channel(WATER_LEVEL_SENSOR_CHANNEL);
   float water_level_voltage = read_voltage_from_adc();
-  //Serial.printf("Water level: %f V\n", water_level_voltage);
-  for (int i = 1; i < MEASUREMENT_SET_SIZE; i++) {
-    if (water_level_voltage <= VOLTAGES[i]) {
-      return linear_interpolation(water_level_voltage, VOLTAGES[i - 1],
-                                  VOLTAGES[i], HEIGHTS[i - 1], HEIGHTS[i]);
-    }
+  Serial.printf("Water level: %f V\n", water_level_voltage);
+  if (water_level_voltage > VOLTAGE_6) {
+    return linear_interpolation(
+      water_level_voltage, VOLTAGE_6, VOLTAGE_40, 6, 40
+    );
   }
-  return HEIGHTS[MEASUREMENT_SET_SIZE - 1];
+  else {
+    return linear_interpolation(
+      water_level_voltage, VOLTAGE_3_5, VOLTAGE_6, 3.5, 6
+    );
+  }
 }
 
 
