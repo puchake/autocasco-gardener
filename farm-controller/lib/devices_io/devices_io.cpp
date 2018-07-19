@@ -44,6 +44,12 @@ void set_multiplexer_channel(uint8_t channel) {
 }
 
 
+float inverse_water_height(float height) {
+  const float offset = 0.42;
+  return 1 / (height + offset);
+}
+
+
 float read_water_level() {
   const static float VOLTAGE_3_5 = 3.0;
   const static float VOLTAGE_6 = 2.0;
@@ -52,16 +58,20 @@ float read_water_level() {
   set_multiplexer_channel(WATER_LEVEL_SENSOR_CHANNEL);
   float water_level_voltage = read_voltage_from_adc();
   Serial.printf("Water level: %f V\n", water_level_voltage);
+  float water_height_inverse;
   if (water_level_voltage > VOLTAGE_6) {
-    return linear_interpolation(
-      water_level_voltage, VOLTAGE_6, VOLTAGE_40, 6, 40
+    water_height_inverse = linear_interpolation(
+      water_level_voltage, VOLTAGE_6, VOLTAGE_3_5, inverse_water_height(6),
+      inverse_water_height(3.5)
     );
   }
   else {
-    return linear_interpolation(
-      water_level_voltage, VOLTAGE_3_5, VOLTAGE_6, 3.5, 6
+    water_height_inverse = linear_interpolation(
+      water_level_voltage, VOLTAGE_40, VOLTAGE_6, inverse_water_height(40),
+      inverse_water_height(6)
     );
   }
+  return 1 / water_height_inverse - 0.42;
 }
 
 
