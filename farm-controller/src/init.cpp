@@ -3,11 +3,13 @@
 #include "init.hpp"
 #include "config.hpp"
 
+
 void init_serial() {
-  Serial.begin(115200);
-  delay(1000);
+  Serial.begin(SERIAL_BAUD_RATE);
+  delay(SERIAL_INIT_DELAY_MS);
   Serial.printf("Serial setup complete.\n");
 }
+
 
 void present_self_to_serial() {
   Serial.printf("########## ESP8266 ##########\n");
