@@ -1,4 +1,5 @@
 #include <ESP8266WiFI.h>
+#include <Adafruit_NeoPixel.h>
 
 #include "devices_io.hpp"
 
@@ -9,12 +10,17 @@ const uint8_t MUX_PIN_0 = D6;
 const uint8_t MUX_PIN_1 = D7;
 const uint8_t MUX_PIN_2 = D8;
 const uint8_t PUMP_PIN = D0;
+const uint8_t LEDS_PIN = D1;
 
 const float WATER_SENSOR_VOLTAGES[] = {0.54, 0.6, 0.76, 0.96, 1.31, 2.38, 2.85,
                                        3.08};
 const float WATER_SENSOR_HEIGHTS[] = {30, 25, 20, 15, 10, 5, 4, 3.5};
 const int WATER_SENSOR_VOLTAGES_COUNT = 8;
 const float WATER_SENSOR_BOTTOM_DISTANCE = 40.0;
+
+const uint8_t LEDS_COUNT = 50;
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(LEDS_COUNT, LEDS_PIN,
+                                            NEO_GRB + NEO_KHZ800);
 
 
 void init_devices_io() {
@@ -23,6 +29,7 @@ void init_devices_io() {
   pinMode(MUX_PIN_1, OUTPUT);
   pinMode(MUX_PIN_2, OUTPUT);
   pinMode(PUMP_PIN, OUTPUT);
+  strip.begin();
 }
 
 
@@ -81,4 +88,19 @@ void turn_pump_on() {
 
 void turn_pump_off() {
   digitalWrite(PUMP_PIN, LOW);
+}
+
+
+void set_leds_color(uint8_t red, uint8_t green, uint8_t blue) {
+  for (uint8_t i = 0; i < strip.numPixels(); i++) {
+      // For some reason blue and green have to be switched for i to work as
+      // expected.
+      strip.setPixelColor(i, red, blue, green);
+  }
+  strip.show();
+}
+
+
+void turn_leds_off() {
+  set_leds_color(0, 0, 0);
 }
