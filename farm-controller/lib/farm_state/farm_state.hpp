@@ -13,7 +13,7 @@ struct FarmStatus {
 
 struct FarmConfig {
   float pump_activation_water_level;
-  float pump_deactiviation_water_level;
+  float pump_deactivation_water_level;
   int no_water_warning_delay_ms;
 
   uint8_t led_strip_red_intensity;

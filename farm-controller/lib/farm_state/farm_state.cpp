@@ -1,4 +1,4 @@
-#include "state.hpp"
+#include "farm_state.hpp"
 
 
 const FarmStatus INITIAL_FARM_STATUS = {
@@ -7,7 +7,7 @@ const FarmStatus INITIAL_FARM_STATUS = {
 
 const FarmConfig INITIAL_FARM_CONFIG = {
   pump_activation_water_level: 10.0,
-  pump_deactiviation_water_level: 15.0,
+  pump_deactivation_water_level: 15.0,
   no_water_warning_delay_ms: 5000,
   led_strip_red_intensity: 255,
   led_strip_green_intensity: 0,

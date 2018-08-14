@@ -4,6 +4,7 @@
 
 #include <web_server.hpp>
 #include <devices_io.hpp>
+#include <farm_controller.hpp>
 
 #include "config.hpp"
 #include "init.hpp"
