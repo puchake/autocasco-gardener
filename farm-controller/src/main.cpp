@@ -2,12 +2,11 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUDP.h>
 
+#include <web_server.hpp>
 #include <devices_io.hpp>
 
 #include "config.hpp"
 #include "init.hpp"
-#include "web_server.hpp"
-
 
 void setup() {
   init_serial();

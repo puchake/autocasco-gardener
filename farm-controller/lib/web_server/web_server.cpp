@@ -1,7 +1,9 @@
 #include "web_server.hpp"
-#include "config.hpp"
 
 
+const char* WEB_SERVER_CONFIG_PATH = "/config";
+const char* WEB_SERVER_STATUS_PATH = "/status";
+const uint16_t WEB_SERVER_PORT = 80;
 ESP8266WebServer web_server(WEB_SERVER_PORT);
 
 

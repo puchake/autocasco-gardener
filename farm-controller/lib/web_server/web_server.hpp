@@ -1,5 +1,5 @@
-#ifndef __WEB_SERVER_HPP_INCLUDED__   
-#define __WEB_SERVER_HPP_INCLUDED__   
+#ifndef __WEB_SERVER_HPP_INCLUDED__
+#define __WEB_SERVER_HPP_INCLUDED__
 
 
 #include <ESP8266WebServer.h>
@@ -17,4 +17,4 @@ void handle_status_get();
 
 void respond_with_syntax_error();
 
-#endif 
+#endif
