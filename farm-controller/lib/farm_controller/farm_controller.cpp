@@ -3,12 +3,10 @@
 #include "farm_controller.hpp"
 
 
-FarmController::FarmController(FarmStatus initial_farm_status,
-                               FarmConfig initial_farm_config,
-                               SensorsReadings initial_sensors_readings) {
-  farm_status = initial_farm_status;
-  farm_config = initial_farm_config;
-  sensors_readings = initial_sensors_readings;
+FarmController::FarmController() {
+  farm_status = INITIAL_FARM_STATUS;
+  farm_config = INITIAL_FARM_CONFIG;
+  sensors_readings = INITIAL_SENSORS_READINGS;
 }
 
 

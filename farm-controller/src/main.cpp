@@ -9,10 +9,14 @@
 #include "config.hpp"
 #include "init.hpp"
 
+
+FarmController farm_controller;
+
+
 void setup() {
   init_serial();
   present_self_to_serial();
-  web_server_init();
+  web_server_init(&farm_controller);
   init_devices_io();
   Serial.printf("Connecting to %s\n", WIFI_SSID);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -23,14 +27,12 @@ void setup() {
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println(WiFi.localIP());
-  WiFi.disconnect();
-  WiFi.setSleepMode(WIFI_NONE_SLEEP);
 }
 
 
 void loop() {
   //digitalWrite(D0, HIGH);
-  delay(1990);
+  delay(1000);
   set_leds_color(0, 255, 0);
   web_server.handleClient();
 }

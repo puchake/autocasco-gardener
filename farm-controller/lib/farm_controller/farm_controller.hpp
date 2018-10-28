@@ -8,9 +8,7 @@
 class FarmController {
 
 public:
-  FarmController(FarmStatus initial_farm_status,
-                 FarmConfig initial_farm_config,
-                 SensorsReadings initial_sensors_readings);
+  FarmController();
   void make_control_step();
   SensorsReadings get_sensors_readings();
   FarmStatus get_farm_status();

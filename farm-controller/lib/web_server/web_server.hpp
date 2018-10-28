@@ -3,18 +3,16 @@
 
 
 #include <ESP8266WebServer.h>
+#include <ArduinoJson.h>
+
+#include <farm_state.hpp>
+#include <farm_controller.hpp>
 
 
 extern ESP8266WebServer web_server;
 
 
-void web_server_init();
+void web_server_init(FarmController* farm_controller);
 
-void handle_config_get();
-void handle_config_put();
-
-void handle_status_get();
-
-void respond_with_syntax_error();
 
 #endif
